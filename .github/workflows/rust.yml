@@ -1,4 +1,4 @@
-name: Rust
+name: Build and test rust code
 
 on: [push]
 
@@ -9,8 +9,6 @@ jobs:
         steps:
             - name: Checkout repository
               uses: actions/checkout@v2
-            - name: Check commit naming convention
-              uses: wagoid/commitlint-github-action@v1
             - name: Build
               run: cargo build --verbose
             - name: Run tests
