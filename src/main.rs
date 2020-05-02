@@ -23,6 +23,7 @@ fn main() {
         .mount("/", routes_with_openapi![
             routes::index::index,
             routes::version::version,
+            routes::v1::branches::branches,
         ])
         .mount(
             "/dev/swagger-ui/",
