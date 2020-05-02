@@ -53,7 +53,7 @@ jobs:
               uses: actions/cache@v1
               with:
                   path: target
-                  key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
+                  key: ${{ runner.os }}-cargo-test-build-target-${{ hashFiles('**/Cargo.lock') }}
             - name: Checkout repository
               uses: actions/checkout@v2
             - name: Set up toolchain
