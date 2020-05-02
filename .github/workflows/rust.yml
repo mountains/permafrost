@@ -36,6 +36,7 @@ jobs:
                   args: --release
 
     test:
+        needs: build
         runs-on: ubuntu-latest
         steps:
             - name: Cache cargo registry
