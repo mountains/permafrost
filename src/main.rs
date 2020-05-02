@@ -22,6 +22,7 @@ fn main() {
         .attach(cors::CorsFairing)
         .mount("/", routes_with_openapi![
             routes::index::index,
+            routes::version::version,
         ])
         .mount(
             "/dev/swagger-ui/",
