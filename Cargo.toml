@@ -29,3 +29,6 @@ dotenv = "0.14.1"
 r2d2-diesel = "1.0"
 r2d2 = "0.8"
 isolang = "1.0"
+
+okapi = "0.4.0"
+rocket_okapi = "0.4.1"
