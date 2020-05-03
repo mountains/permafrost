@@ -25,8 +25,8 @@ fn main() {
             routes_with_openapi![
                 routes::index::index,
                 routes::version::version,
-                routes::v1::commits::commits,
-                routes::v1::branches::branches,
+                routes::v1::git::commits::commits,
+                routes::v1::git::branches::branches,
             ],
         )
         .mount(

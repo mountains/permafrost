@@ -3,7 +3,7 @@ use git2::{Branch as GitBranch, BranchType, Repository};
 use rocket_contrib::json::Json;
 
 #[openapi]
-#[get("/v1/branches")]
+#[get("/v1/git/branches")]
 pub fn branches() -> Json<Vec<Branch>> {
     let _repo = match Repository::open("/mnt/Dev/@mountains/permafrost") {
         Ok(repo) => repo,
@@ -46,7 +46,7 @@ fn get_upstream_branch_name(branch: GitBranch, branch_type: BranchType) -> Optio
         BranchType::Local => {
             let upstream_branch = match branch.upstream() {
                 Ok(upstream_branch) => upstream_branch,
-                Err(e) => return None,
+                Err(_) => return None,
             };
             let upstream_branch_name = match upstream_branch.name() {
                 Ok(upstream_branch_name) => upstream_branch_name,

@@ -3,7 +3,7 @@ use git2::{Oid, Repository};
 use rocket_contrib::json::Json;
 
 #[openapi]
-#[get("/v1/commits")]
+#[get("/v1/git/commits")]
 pub fn commits() -> Json<Vec<Commit>> {
     let _repo = match Repository::open("/mnt/Dev/@mountains/permafrost") {
         Ok(repo) => repo,

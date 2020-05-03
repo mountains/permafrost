@@ -1,2 +1,1 @@
-pub mod commits;
-pub mod branches;
+pub mod git;
