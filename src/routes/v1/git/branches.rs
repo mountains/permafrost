@@ -3,8 +3,8 @@ use git2::{Branch as GitBranch, BranchType, Repository};
 use rocket_contrib::json::Json;
 
 #[openapi]
-#[get("/v1/git/branches")]
-pub fn branches() -> Json<Vec<Branch>> {
+#[get("/v1/git/<uuid>/branches")]
+pub fn branches(uuid: String) -> Json<Vec<Branch>> {
     let _repo = match Repository::open("/mnt/Dev/@mountains/permafrost") {
         Ok(repo) => repo,
         Err(e) => panic!("failed to open: {}", e),
