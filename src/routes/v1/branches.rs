@@ -46,7 +46,7 @@ fn get_upstream_branch_name(branch: GitBranch, branch_type: BranchType) -> Optio
         BranchType::Local => {
             let upstream_branch = match branch.upstream() {
                 Ok(upstream_branch) => upstream_branch,
-                Err(e) => panic!("failed to get upstream branch: {}", e),
+                Err(e) => return None,
             };
             let upstream_branch_name = match upstream_branch.name() {
                 Ok(upstream_branch_name) => upstream_branch_name,
