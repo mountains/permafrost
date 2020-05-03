@@ -3,4 +3,5 @@ pub mod version;
 
 pub mod v1 {
     pub mod branches;
+    pub mod commits;
 }
