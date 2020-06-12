@@ -31,7 +31,7 @@ isolang = "1.0"
 schemars = "0.7.0"
 
 okapi = "0.4.0"
-rocket_okapi = "0.4.1"
+rocket_okapi = "0.6.0-alpha-1"
 
 git2 = "0.13"
 hex = "0.4.2"
