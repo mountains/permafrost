@@ -12,6 +12,7 @@ extern crate serde_json;
 use rocket_okapi::swagger_ui::*;
 pub mod cors;
 pub mod models;
+pub mod requests;
 pub mod ressources;
 pub mod routes;
 

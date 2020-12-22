@@ -12,7 +12,7 @@ pub struct Branch {
 }
 
 pub fn example_name() -> &'static str {
-    "master"
+    "main"
 }
 
 impl Branch {

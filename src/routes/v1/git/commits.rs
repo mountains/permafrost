@@ -1,10 +1,15 @@
+use crate::requests::Reference::Reference;
 use crate::ressources::Commits::Commit;
 use git2::{Oid, Repository};
 use rocket_contrib::json::Json;
 
 #[openapi]
-#[get("/v1/git/<uuid>/commits")]
-pub fn commits(uuid: String) -> Json<Vec<Commit>> {
+#[post(
+    "/v1/git/<uuid>/commits",
+    format = "application/json",
+    data = "<reference>"
+)]
+pub fn commits(reference: Json<Reference>, uuid: String) -> Json<Vec<Commit>> {
     let _repo = match Repository::open("/mnt/Dev/@mountains/permafrost") {
         Ok(repo) => repo,
         Err(e) => panic!("failed to open: {}", e),
@@ -13,7 +18,7 @@ pub fn commits(uuid: String) -> Json<Vec<Commit>> {
         Ok(commits) => commits,
         Err(e) => panic!("failed to get commits: {}", e),
     };
-    match _commits.push_ref("refs/heads/master") {
+    match _commits.push_ref(&reference.name) {
         Ok(_) => {}
         Err(e) => panic!("Invalid reference: {}", e),
     };
