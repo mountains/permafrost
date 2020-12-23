@@ -1,4 +1,3 @@
-use rocket_okapi::request::OpenApiFromData;
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 

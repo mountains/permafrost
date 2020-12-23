@@ -10,16 +10,19 @@ extern crate rocket_okapi;
 extern crate serde;
 extern crate serde_json;
 use rocket_okapi::swagger_ui::*;
+use dotenv::dotenv;
 pub mod cors;
 pub mod models;
 pub mod requests;
 pub mod ressources;
 pub mod routes;
+pub mod connection;
 
 fn main() {
     println!("No data should be lost, ever.");
+    dotenv().ok();
     rocket::ignite()
-        //.manage(connection::connect())
+        .manage(connection::connect())
         .attach(cors::CorsFairing)
         .mount(
             "/",
