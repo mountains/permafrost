@@ -1,16 +1,9 @@
-use super::schema::repositories;
-use diesel::prelude::*;
+use chrono::NaiveDateTime;
 
 #[derive(Queryable)]
 pub struct RepositoryGroup {
-    pub uuid: String,
-    pub created_at: SystemTime,
-    pub updated_at: SystemTime,
+    pub uuid: Vec<u8>,
+    pub created_at: NaiveDateTime,
+    pub updated_at: Option<NaiveDateTime>,
     pub name: String,
-}
-
-#[derive(Insertable)]
-#[table_name = "repository_groups"]
-pub struct NewRepositoryGroup<'a> {
-    pub name: &'a str,
 }

@@ -1,8 +1,8 @@
 build:
-	cargo build
+	@cargo build
 
 test:
-	cargo test
+	@cargo test
 
 format:
-	cargo fmt -- --emit files
+	@cargo fmt -- --emit files

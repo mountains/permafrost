@@ -1,8 +1,8 @@
-use std::env;
-use std::ops::Deref;
 use rocket::http::Status;
 use rocket::request::{self, FromRequest};
-use rocket::{Request, State, Outcome};
+use rocket::{Outcome, Request, State};
+use std::env;
+use std::ops::Deref;
 
 use r2d2;
 use r2d2_diesel::ConnectionManager;
@@ -14,7 +14,9 @@ pub type Pool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
 pub fn connect() -> Pool {
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
     let manager = ConnectionManager::<SqliteConnection>::new(database_url);
-    r2d2::Pool::builder().build(manager).expect("Failed to create pool")
+    r2d2::Pool::builder()
+        .build(manager)
+        .expect("Failed to create pool")
 }
 
 pub type PooledConnection = r2d2::PooledConnection<ConnectionManager<SqliteConnection>>;
@@ -33,7 +35,7 @@ impl<'a, 'r> FromRequest<'a, 'r> for Connection {
         let pool = request.guard::<State<Pool>>()?;
         match pool.get() {
             Ok(conn) => Outcome::Success(Connection(conn)),
-            Err(_) => Outcome::Failure((Status::ServiceUnavailable, ()))
+            Err(_) => Outcome::Failure((Status::ServiceUnavailable, ())),
         }
     }
 }

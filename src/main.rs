@@ -6,17 +6,20 @@ extern crate rocket;
 
 #[macro_use]
 extern crate rocket_okapi;
+#[macro_use]
+extern crate diesel;
 
 extern crate serde;
 extern crate serde_json;
-use rocket_okapi::swagger_ui::*;
 use dotenv::dotenv;
+use rocket_okapi::swagger_ui::*;
+pub mod connection;
 pub mod cors;
+pub mod database;
 pub mod models;
 pub mod requests;
 pub mod ressources;
 pub mod routes;
-pub mod connection;
 
 fn main() {
     println!("No data should be lost, ever.");
@@ -31,6 +34,7 @@ fn main() {
                 routes::version::version,
                 routes::v1::git::commits::commits,
                 routes::v1::git::branches::branches,
+                routes::v1::git::repositories::list_repositories,
             ],
         )
         .mount(
