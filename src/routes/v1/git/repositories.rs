@@ -1,8 +1,12 @@
 use crate::connection::Connection;
+use diesel::dsl::insert_into;
 use diesel::{self, prelude::*};
 use rocket_contrib::json::Json;
 
+use crate::models::Repository::NewRepository;
 use crate::models::Repository::Repository;
+use crate::requests::NewRepository::NewRepositoryRequest;
+use crate::responses::NewRepositorySuccessResponse::NewRepositorySuccessResponse;
 use crate::ressources::Repository::RepositoryRessource;
 
 use uuid::Uuid;
@@ -26,4 +30,33 @@ pub fn list_repositories(conn: Connection) -> Json<Vec<RepositoryRessource>> {
         })
     }
     Json(_repositories)
+}
+
+#[openapi]
+#[post(
+    "/v1/git/repositories",
+    format = "application/json",
+    data = "<request>"
+)]
+pub fn add_repository(
+    request: Json<NewRepositoryRequest>,
+    conn: Connection,
+) -> Json<NewRepositorySuccessResponse> {
+    use crate::database::schema::repositories::dsl::*;
+
+    let new_uuid = Uuid::new_v4();
+    let new_repository = NewRepository {
+        uuid: &new_uuid.as_bytes().to_vec(),
+        created_at: &chrono::Local::now().naive_utc(),
+        updated_at: None,
+        path: &request.path,
+        group_uuid: None,
+    };
+
+    insert_into(repositories)
+        .values(&new_repository)
+        .execute(&*conn)
+        .expect("Error");
+
+    Json(NewRepositorySuccessResponse::created(new_uuid.to_string()))
 }

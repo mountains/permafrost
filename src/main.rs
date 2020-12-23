@@ -18,6 +18,7 @@ pub mod cors;
 pub mod database;
 pub mod models;
 pub mod requests;
+pub mod responses;
 pub mod ressources;
 pub mod routes;
 
@@ -35,6 +36,7 @@ fn main() {
                 routes::v1::git::commits::commits,
                 routes::v1::git::branches::branches,
                 routes::v1::git::repositories::list_repositories,
+                routes::v1::git::repositories::add_repository,
             ],
         )
         .mount(

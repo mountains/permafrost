@@ -5,6 +5,7 @@ use rocket_contrib::json::Json;
 #[openapi]
 #[get("/v1/git/<uuid>/branches")]
 pub fn branches(uuid: String) -> Json<Vec<Branch>> {
+    print!("{}", uuid);
     let _repo = match Repository::open("/mnt/Dev/@mountains/permafrost") {
         Ok(repo) => repo,
         Err(e) => panic!("failed to open: {}", e),

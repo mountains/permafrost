@@ -10,6 +10,7 @@ use rocket_contrib::json::Json;
     data = "<reference>"
 )]
 pub fn commits(reference: Json<Reference>, uuid: String) -> Json<Vec<Commit>> {
+    print!("{}", uuid);
     let _repo = match Repository::open("/mnt/Dev/@mountains/permafrost") {
         Ok(repo) => repo,
         Err(e) => panic!("failed to open: {}", e),

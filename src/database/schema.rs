@@ -4,7 +4,7 @@ table! {
         created_at -> Timestamp,
         updated_at -> Nullable<Timestamp>,
         path -> Text,
-        group_id -> Nullable<Binary>,
+        group_uuid -> Nullable<Binary>,
     }
 }
 
