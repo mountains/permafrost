@@ -1,7 +1,7 @@
 use crate::connection::Connection;
 use diesel::dsl::insert_into;
 use diesel::{self, prelude::*};
-use rocket_contrib::json::Json;
+use rocket::serde::json::Json;
 
 use crate::models::Repository::NewRepository;
 use crate::models::Repository::Repository;
@@ -11,7 +11,7 @@ use crate::ressources::Repository::RepositoryRessource;
 
 use uuid::Uuid;
 
-#[openapi]
+// #[openapi]
 #[get("/v1/git/repositories")]
 pub fn list_repositories(conn: Connection) -> Json<Vec<RepositoryRessource>> {
     use crate::database::schema::repositories::dsl::*;
@@ -32,7 +32,7 @@ pub fn list_repositories(conn: Connection) -> Json<Vec<RepositoryRessource>> {
     Json(_repositories)
 }
 
-#[openapi]
+// #[openapi]
 #[post(
     "/v1/git/repositories",
     format = "application/json",

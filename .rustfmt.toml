@@ -1,1 +1,1 @@
-ignore = ['src/database']
+# ignore = ['src/database']

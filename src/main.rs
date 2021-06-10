@@ -1,18 +1,18 @@
-#![feature(proc_macro_hygiene, decl_macro)]
-#![recursion_limit = "256"]
-
 #[macro_use]
 extern crate rocket;
-
-#[macro_use]
-extern crate rocket_okapi;
 #[macro_use]
 extern crate diesel;
-
+extern crate dotenv;
 extern crate serde;
+extern crate serde_derive;
 extern crate serde_json;
-use dotenv::dotenv;
-use rocket_okapi::swagger_ui::*;
+//#[macro_use]
+//extern crate rocket_okapi;
+
+use crate::dotenv::dotenv;
+use std::env;
+//use rocket_okapi::swagger_ui::*;
+
 pub mod connection;
 pub mod cors;
 pub mod database;
@@ -22,15 +22,26 @@ pub mod responses;
 pub mod ressources;
 pub mod routes;
 
-fn main() {
+#[launch]
+fn rocket() -> _ {
     println!("No data should be lost, ever.");
     dotenv().ok();
-    rocket::ignite()
-        .manage(connection::connect())
+
+    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    rocket::build()
+        .manage(connection::establish_connection(database_url))
         .attach(cors::CorsFairing)
+        /*.mount(
+            "/dev/swagger-ui/",
+            make_swagger_ui(&SwaggerUIConfig {
+                url: "../../openapi.json".to_owned(),
+                ..Default::default()
+            }),
+        )*/
         .mount(
             "/",
-            routes_with_openapi![
+            routes![
+                // routes_with_openapi![]
                 routes::index::index,
                 routes::version::version,
                 routes::v1::git::commits::commits,
@@ -39,12 +50,4 @@ fn main() {
                 routes::v1::git::repositories::add_repository,
             ],
         )
-        .mount(
-            "/dev/swagger-ui/",
-            make_swagger_ui(&SwaggerUIConfig {
-                url: "../../openapi.json".to_owned(),
-                ..Default::default()
-            }),
-        )
-        .launch();
 }

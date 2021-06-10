@@ -1,3 +1,5 @@
+.PHONY: build test format
+
 build:
 	@cargo build
 

@@ -5,33 +5,28 @@ authors = ["William Desportes <williamdes@wdes.fr>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
-# Powerful date and time functionality
-chrono = { version = "0.4.6", features = ["serde"] }
-# Install sqlite https://github.com/diesel-rs/diesel/issues/2026#issuecomment-534781686
-diesel = { version = "1.4.5", features = ["chrono", "sqlite", "r2d2"] }
-
-# Rocket Webserver
-rocket = "0.4.0"
-
-# Serialization/Deserialization
-serde_json = "1.0.39"
-serde = "1.0.90"
-serde_derive = "1.0.90"
+# ENV
 dotenv = "0.15.0"
-r2d2-diesel = "1.0"
-r2d2 = "0.8"
+
+# API docs
 schemars = "0.8.0"
+# okapi = "0.5.0-alpha-1"
+# rocket_okapi = "0.6.0-alpha-1"
 
-okapi = "0.5.0-alpha-1"
-rocket_okapi = "0.6.0-alpha-1"
+# Webserver
+rocket = { version = "0.5.0-rc.1", features = ["json"] }
 
+# Database
+diesel = { version = "1.4.4", features = [
+    "sqlite", "chrono", "uuid", "r2d2"
+]}
+chrono = { version = "0.4.6", features = ["serde"] }
+uuid = { version = "0.8.2", features = ["serde", "v4"] }
 git2 = "0.13"
 hex = "0.4.2"
-uuid = { version = "0.8", features = ["serde", "v4"] }
 
-[dependencies.rocket_contrib]
-version = "0.4.4"
-default-features = false
-features = ["diesel_sqlite_pool", "json", "uuid"]
+# Serialization/Deserialization
+serde_json = "1.0.64"
+serde = "1.0.126"
+serde_derive = "1.0.126"

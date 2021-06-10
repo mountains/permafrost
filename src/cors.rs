@@ -3,8 +3,9 @@ use rocket::{http::Method, http::Status, Request, Response};
 
 pub struct CorsFairing;
 
+#[rocket::async_trait]
 impl Fairing for CorsFairing {
-    fn on_response(&self, request: &Request, response: &mut Response) {
+    async fn on_response<'r>(&self, request: &'r Request<'_>, response: &mut Response<'r>) {
         // Add CORS headers to allow all origins to all outgoing requests
         response.set_header(rocket::http::Header::new(
             "Access-Control-Allow-Origin",
