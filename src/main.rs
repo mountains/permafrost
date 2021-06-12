@@ -10,7 +10,7 @@ extern crate serde_json;
 extern crate rocket_okapi;
 
 use crate::dotenv::dotenv;
-use rocket_okapi::swagger_ui::*;
+use rocket_okapi::swagger_ui::{make_swagger_ui, SwaggerUIConfig};
 use std::env;
 
 pub mod connection;
