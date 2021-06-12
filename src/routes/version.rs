@@ -1,7 +1,7 @@
 use crate::ressources::Version::Version;
 use rocket::serde::json::Json;
 
-//#[openapi]
+#[openapi]
 #[get("/version")]
 pub fn version() -> Json<Version> {
     Json(Version {

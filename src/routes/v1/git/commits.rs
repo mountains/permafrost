@@ -3,7 +3,7 @@ use crate::ressources::Commits::Commit;
 use git2::{Oid, Repository};
 use rocket::serde::json::Json;
 
-//#[openapi]
+#[openapi]
 #[post(
     "/v1/git/<uuid>/commits",
     format = "application/json",

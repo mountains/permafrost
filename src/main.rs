@@ -6,12 +6,12 @@ extern crate dotenv;
 extern crate serde;
 extern crate serde_derive;
 extern crate serde_json;
-//#[macro_use]
-//extern crate rocket_okapi;
+#[macro_use]
+extern crate rocket_okapi;
 
 use crate::dotenv::dotenv;
+use rocket_okapi::swagger_ui::*;
 use std::env;
-//use rocket_okapi::swagger_ui::*;
 
 pub mod connection;
 pub mod cors;
@@ -31,17 +31,16 @@ fn rocket() -> _ {
     rocket::build()
         .manage(connection::establish_connection(database_url))
         .attach(cors::CorsFairing)
-        /*.mount(
+        .mount(
             "/dev/swagger-ui/",
             make_swagger_ui(&SwaggerUIConfig {
                 url: "../../openapi.json".to_owned(),
                 ..Default::default()
             }),
-        )*/
+        )
         .mount(
             "/",
-            routes![
-                // routes_with_openapi![]
+            routes_with_openapi![
                 routes::index::index,
                 routes::version::version,
                 routes::v1::git::commits::commits,

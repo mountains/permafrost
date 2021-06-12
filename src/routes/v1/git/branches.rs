@@ -2,7 +2,7 @@ use crate::ressources::Branches::Branch;
 use git2::{Branch as GitBranch, BranchType, Repository};
 use rocket::serde::json::Json;
 
-//#[openapi]
+#[openapi]
 #[get("/v1/git/<uuid>/branches")]
 pub fn branches(uuid: String) -> Json<Vec<Branch>> {
     print!("{}", uuid);
